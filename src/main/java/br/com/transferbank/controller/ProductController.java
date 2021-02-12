@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.transferbank.entity.Product;
@@ -27,10 +28,14 @@ public class ProductController {
 	private ProductService productService;
 		
 	
-	@GetMapping("/")
-	public ResponseEntity<?> allProducts () throws ProductCollectionException{
-		List<Product> products = productService.listAllProducts();
-		return new ResponseEntity<>(products, products.size()>0 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+	@GetMapping()
+	public ResponseEntity<?> allProducts (
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "4") Integer size
+			
+			) throws ProductCollectionException{
+		List<Product> products = productService.listAllProducts(page, size);
+		return new ResponseEntity<>(products, HttpStatus.OK );
 	}
 	
 	

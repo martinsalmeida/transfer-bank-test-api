@@ -7,7 +7,7 @@ import br.com.transferbank.exception.ProductCollectionException;
 
 public interface ProductService {
 	
-	public List<Product> listAllProducts() throws ProductCollectionException;
+	public List<Product> listAllProducts(Integer page, Integer size) throws ProductCollectionException;
 	
 	public Product findProductByID(String id) throws ProductCollectionException;
 	
